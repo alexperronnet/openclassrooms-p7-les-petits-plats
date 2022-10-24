@@ -38,10 +38,35 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Base link -->
+    <base target="_blank" />
   </head>
   <body>
     <!-- App -->
-    <div id="app"></div>
+    <div id="app">
+      <!-- Header -->
+      <header class="header">
+        <h1 class="header__title">Les Petits Plats</h1>
+        <svg class="header__logo">
+          <use xlink:href="assets/sprite.svg#logo" />
+        </svg>
+      </header>
+
+      <!-- Main -->
+      <main id="main"></main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <a href="https://alexperronnet.dev" class="footer__link">Réalisé par Alex Perronnet</a>
+        <a
+          href="https://github.com/alexperronnet/openclassrooms-p7-les-petits-plats"
+          class="footer__link"
+        >
+          Voir la source
+        </a>
+      </footer>
+    </div>
 
     <!-- Scripts -->
     <script type="module" src="src/app.js"></script>

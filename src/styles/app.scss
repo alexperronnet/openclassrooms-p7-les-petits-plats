@@ -1,3 +1,7 @@
 // Base
-@use "@/styles/base/reset";
-@use "@/styles/base/boilerplate";
+@use '@/styles/base/reset';
+@use '@/styles/base/boilerplate';
+
+// Layout
+@use '@/styles/layout/header';
+@use '@/styles/layout/footer';
