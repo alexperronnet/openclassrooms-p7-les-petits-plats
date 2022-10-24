@@ -16,6 +16,8 @@ export function Modal(card, recipe) {
   const modalTime = modalClone.querySelector('.recipe-modal__time')
   const modalTimeValue = modalClone.querySelector('.recipe-modal__time-value')
   const modalServingsCount = modalClone.querySelector('.recipe-modal__servings-count')
+  const modalServingsDecrease = modalClone.getElementById('decrease-servings')
+  const modalServingsIncrease = modalClone.getElementById('increase-servings')
   const modalIngredients = modalClone.querySelector('.recipe-modal__ingredients-list')
   const modalApplianceUstensils = modalClone.querySelector('.recipe-modal__appliance-ustensils-list')
   const modalDescription = modalClone.querySelector('.recipe-modal__description-text')
@@ -35,14 +37,14 @@ export function Modal(card, recipe) {
 
     // Set template
     ingredientTemplate.innerHTML = `
-          <li class="recipe-modal__ingredient">
-            <input type="checkbox" class="recipe-modal__ingredient-checkbox" id="ingredient-${index}" />
-            <label for="ingredient-${index}" class="recipe-modal__ingredient-label">
-              <span class="recipe-modal__ingredient-name">${ingredient.ingredient}</span>
-              <span class="recipe-modal__ingredient-quantity">${ingredient.quantity} ${ingredient.unit || ''}</span>
-            </label>
-          </li>
-        `
+      <li class="recipe-modal__ingredient">
+        <input type="checkbox" class="recipe-modal__ingredient-checkbox" id="ingredient-${index}" />
+        <label for="ingredient-${index}" class="recipe-modal__ingredient-label">
+          <span class="recipe-modal__ingredient-name">${ingredient.ingredient}</span>
+          <span class="recipe-modal__ingredient-quantity">${ingredient.quantity} ${ingredient.unit || ''}</span>
+        </label>
+      </li>
+    `
 
     // Remove quantity if undefined
     ingredient.quantity === undefined &&
@@ -104,4 +106,51 @@ export function Modal(card, recipe) {
       CloseModal()
     }
   })
+
+  // Update servings
+  const UpdateServings = type => {
+    // Get default servings
+    const defaultServings = recipe.servings
+
+    // Base multiplier
+    let multiplier = 1
+
+    // Increase servings
+    if (type === 'increase') {
+      modalServingsCount.textContent === defaultServings
+        ? (multiplier = 2)
+        : (multiplier = parseInt(modalServingsCount.textContent) / defaultServings + 1)
+
+      modalServingsCount.textContent = defaultServings * multiplier
+      modalServingsDecrease.removeAttribute('disabled')
+
+      multiplier === 10 && modalServingsIncrease.setAttribute('disabled', '')
+    }
+
+    // Decrease servings
+    if (type === 'decrease') {
+      modalServingsCount.textContent === defaultServings * 2
+        ? (multiplier = 1)
+        : (multiplier = parseInt(modalServingsCount.textContent) / defaultServings - 1)
+
+      modalServingsCount.textContent = defaultServings * multiplier
+      modalServingsIncrease.removeAttribute('disabled')
+
+      multiplier === 1 && modalServingsDecrease.setAttribute('disabled', '')
+    }
+
+    // Get ingredients quantity
+    const ingredientsQuantity = modalIngredients.querySelectorAll('.recipe-modal__ingredient-quantity')
+
+    // Update ingredients quantity
+    ingredientsQuantity.forEach((quantity, index) => {
+      quantity.textContent = `${recipe.compositions[index].quantity * multiplier} ${
+        recipe.compositions[index].unit || ''
+      }`
+    })
+  }
+
+  // Event to update servings
+  modalServingsIncrease.addEventListener('click', () => UpdateServings('increase'))
+  modalServingsDecrease.addEventListener('click', () => UpdateServings('decrease'))
 }
