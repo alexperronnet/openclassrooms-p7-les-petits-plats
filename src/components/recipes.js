@@ -48,6 +48,29 @@ export function Recipes(recipeData) {
     recipes.append(cardClone)
   })
 
-  // Remove template
-  cardTemplate.remove()
+  // Browse recipes with arrow keys
+  recipes.addEventListener('keydown', event => {
+    // Browse recipes
+    const BrowseRecipes = columnCount => {
+      // Prevent default
+      event.preventDefault()
+
+      // Get current position
+      const currentPosition = Array.from(recipes.children).indexOf(event.target)
+
+      // Get next position
+      const nextPosition = recipes.children[currentPosition + columnCount]
+
+      // Focus next position
+      nextPosition && nextPosition.focus()
+    }
+
+    // Get column count
+    const columnCount = Math.floor(recipes.offsetWidth / recipes.children[0].offsetWidth)
+
+    event.key === 'ArrowUp' && BrowseRecipes(-columnCount)
+    event.key === 'ArrowDown' && BrowseRecipes(columnCount)
+    event.key === 'ArrowLeft' && BrowseRecipes(-1)
+    event.key === 'ArrowRight' && BrowseRecipes(1)
+  })
 }
