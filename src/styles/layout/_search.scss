@@ -1,0 +1,79 @@
+@use '@/styles/abstracts/variables' as *;
+
+.search {
+  position: relative;
+}
+
+.search__input {
+  width: 100%;
+  height: 5rem;
+  padding-inline: 4.5rem 8rem;
+  color: map-get($color-neutral, 900);
+  background-color: map-get($color-neutral, 100);
+  border: 0.125rem solid map-get($color-neutral, 200);
+  border-radius: $rounded;
+  transition: border-color $transition-fast;
+
+  @media (max-width: $bp-tablet) {
+    padding-inline-end: 1.5rem;
+  }
+
+  @media (max-width: $bp-mobile) {
+    height: 4rem;
+  }
+
+  &::placeholder {
+    color: map-get($color-neutral, 400);
+    transition: color $transition-fast;
+  }
+
+  &:hover {
+    border-color: map-get($color-blue, light);
+  }
+
+  &:focus-visible {
+    border-color: map-get($color-blue, default);
+
+    &::placeholder {
+      color: map-get($color-neutral, 200);
+    }
+
+    ~ .search__label .search__icon {
+      color: map-get($color-blue, default);
+    }
+  }
+}
+
+.search__label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  margin-inline-start: 1.5rem;
+  cursor: pointer;
+}
+
+.search__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: color $transition-fast;
+}
+
+.search__kbd {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  margin-inline-end: 1.5rem;
+  width: 5rem;
+  padding: 0.5rem;
+  border-radius: $rounded;
+  background-color: map-get($color-neutral, 200);
+  border: 0.125rem solid map-get($color-neutral, 300);
+  font-size: 0.75rem;
+  text-align: center;
+
+  @media (max-width: $bp-tablet) {
+    display: none;
+  }
+}
