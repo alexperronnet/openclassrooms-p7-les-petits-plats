@@ -28,4 +28,7 @@ export function GetData() {
     // Create thumbnail
     recipe.thumbnail = `assets/thumbnails/recipe-${recipe.id}.webp`
   })
+
+  // Return recipes
+  return recipes
 }

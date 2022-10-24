@@ -54,7 +54,10 @@
       </header>
 
       <!-- Main -->
-      <main id="main"></main>
+      <main id="main">
+        <!-- Recipes -->
+        <section class="recipes"></section>
+      </main>
 
       <!-- Footer -->
       <footer class="footer">
@@ -67,6 +70,28 @@
         </a>
       </footer>
     </div>
+
+    <!-- Template - recipe-card -->
+    <template id="recipe-card-template">
+      <a href="#" class="recipe-card">
+        <img class="recipe-card__thumbnail" />
+        <div class="recipe-card__content">
+          <header class="recipe-card__header">
+            <h2 class="recipe-card__title"></h2>
+            <div class="recipe-card__time">
+              <svg class="recipe-card__time-icon">
+                <use xlink:href="assets/sprite.svg#icon-timer"></use>
+              </svg>
+              <span class="recipe-card__time-value"></span>
+            </div>
+          </header>
+          <div class="recipe-card__body">
+            <ul class="recipe-card__ingredients"></ul>
+            <p class="recipe-card__description"></p>
+          </div>
+        </div>
+      </a>
+    </template>
 
     <!-- Scripts -->
     <script type="module" src="src/app.js"></script>

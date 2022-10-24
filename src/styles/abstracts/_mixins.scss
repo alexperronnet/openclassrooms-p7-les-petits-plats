@@ -9,3 +9,9 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

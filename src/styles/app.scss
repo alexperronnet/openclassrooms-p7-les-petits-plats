@@ -1,7 +1,9 @@
 // Base
 @use '@/styles/base/reset';
+@use '@/styles/base/animations';
 @use '@/styles/base/boilerplate';
 
 // Layout
 @use '@/styles/layout/header';
+@use '@/styles/layout/recipes';
 @use '@/styles/layout/footer';
