@@ -20,9 +20,6 @@
   <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="icon-arrow">
     <path d="M13 7.828V20H11V7.828L5.636 13.192L4.222 11.778L12 4L19.778 11.778L18.364 13.192L13 7.828Z" fill="currentColor"></path>
   </symbol>
-  <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="icon-check">
-    <path d="M10 15.172L19.192 5.979L20.607 7.393L10 18L3.636 11.636L5.05 10.222L10 15.172Z" fill="currentColor"></path>
-  </symbol>
   <symbol fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="icon-chevron">
     <path d="M12 10.828L7.05 15.778L5.636 14.364L12 8L18.364 14.364L16.95 15.778L12 10.828Z" fill="currentColor"></path>
   </symbol>

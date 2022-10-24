@@ -22,10 +22,7 @@
     <meta property="twitter:url" content="https://les-petits-plats.alexperronnet.dev/" />
     <meta property="twitter:title" content="Recherche — Les Petits Plats" />
     <meta property="twitter:description" content="Trouvez la recette parfaite !" />
-    <meta
-      property="twitter:image"
-      content="https://les-petits-plats.alexperronnet.dev/banner.png"
-    />
+    <meta property="twitter:image" content="https://les-petits-plats.alexperronnet.dev/banner.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -34,10 +31,7 @@
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
 
     <!-- Base link -->
     <base target="_blank" />
@@ -62,10 +56,7 @@
       <!-- Footer -->
       <footer class="footer">
         <a href="https://alexperronnet.dev" class="footer__link">Réalisé par Alex Perronnet</a>
-        <a
-          href="https://github.com/alexperronnet/openclassrooms-p7-les-petits-plats"
-          class="footer__link"
-        >
+        <a href="https://github.com/alexperronnet/openclassrooms-p7-les-petits-plats" class="footer__link">
           Voir la source
         </a>
       </footer>
@@ -95,7 +86,59 @@
 
     <!-- Template - recipe-modal -->
     <template id="recipe-modal-template">
-      <dialog class="recipe-modal"></dialog>
+      <dialog class="recipe-modal">
+        <div class="recipe-modal__container">
+          <div class="recipe-modal__thumbnail-wrapper">
+            <img class="recipe-modal__thumbnail" />
+          </div>
+          <header class="recipe-modal__header">
+            <div class="recipe-modal__infos">
+              <h3 class="recipe-modal__title"></h3>
+              <div class="recipe-modal__time">
+                <svg class="recipe-modal__time-icon">
+                  <use xlink:href="assets/sprite.svg#icon-timer"></use>
+                </svg>
+                <span class="recipe-modal__time-value"></span>
+              </div>
+            </div>
+            <button class="recipe-modal__close">
+              <svg class="recipe-modal__close-icon">
+                <use xlink:href="assets/sprite.svg#icon-close"></use>
+              </svg>
+              <span class="recipe-modal__close-text">Fermer</span>
+            </button>
+          </header>
+          <div class="recipe-modal__servings">
+            <button class="recipe-modal__servings-buttons" id="decrease-servings" disabled>
+              <svg class="recipe-modal__servings-icon">
+                <use xlink:href="assets/sprite.svg#icon-minus"></use>
+              </svg>
+              <span class="recipe-modal__servings-buttons-text">Diminuer</span>
+            </button>
+            <span class="recipe-modal__servings-count"></span>
+            <button class="recipe-modal__servings-buttons" id="increase-servings">
+              <svg class="recipe-modal__servings-icon">
+                <use xlink:href="assets/sprite.svg#icon-plus"></use>
+              </svg>
+              <span class="recipe-modal__servings-buttons-text">Augmenter</span>
+            </button>
+          </div>
+          <div class="recipe-modal__content">
+            <div class="recipe-modal__ingredients">
+              <h4 class="recipe-modal__ingredients-title">Ingrédients</h4>
+              <ul class="recipe-modal__ingredients-list"></ul>
+            </div>
+            <div class="recipe-modal__appliance-ustensils">
+              <h4 class="recipe-modal__appliance-ustensils-title">Ustensiles</h4>
+              <ul class="recipe-modal__appliance-ustensils-list"></ul>
+            </div>
+            <div class="recipe-modal__description">
+              <h4 class="recipe-modal__description-title">Instructions</h4>
+              <p class="recipe-modal__description-text"></p>
+            </div>
+          </div>
+        </div>
+      </dialog>
     </template>
 
     <!-- Scripts -->

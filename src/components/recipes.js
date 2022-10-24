@@ -1,3 +1,6 @@
+// Import modal
+import { Modal } from '@/components'
+
 export function Recipes(recipeData) {
   // Get elements
   const recipes = document.querySelector('.recipes')
@@ -32,7 +35,7 @@ export function Recipes(recipeData) {
       ingredientTemplate.innerHTML = `
         <li class="recipe-card__ingredient">
           <span class="recipe-card__ingredient-name">${ingredient.ingredient}</span>
-          <span class="recipe-card__ingredient-quantity">${ingredient.quantity} ${ingredient.unit}</span>
+          <span class="recipe-card__ingredient-quantity">${ingredient.quantity} ${ingredient.unit || ''}</span>
         </li>
       `
 
@@ -46,6 +49,9 @@ export function Recipes(recipeData) {
 
     // Append card
     recipes.append(cardClone)
+
+    // On click on card create dialog
+    card.addEventListener('click', event => event.preventDefault() || Modal(card, recipe))
   })
 
   // Browse recipes with arrow keys
