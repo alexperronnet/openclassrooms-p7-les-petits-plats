@@ -60,8 +60,117 @@
           <kbd class="search__kbd"></kbd>
         </section>
 
+        <!-- Filters & tags -->
+        <section class="filters-tags">
+          <!-- Tags -->
+          <div class="tags" hidden></div>
+
+          <!-- Filters -->
+          <div class="filters">
+            <!-- Template - filter-category -->
+            <template id="filter-category-template">
+              <div class="filter" aria-haspopup="false">
+                <button class="filter__button" aria-expanded="false">
+                  <span class="filter__button-text"></span>
+                  <svg class="filter__button-icon">
+                    <use xlink:href="assets/sprite.svg#icon-chevron" />
+                  </svg>
+                </button>
+                <div class="filter__dropdown" hidden>
+                  <label class="filter__label">
+                    <svg class="filter__label-icon">
+                      <use xlink:href="assets/sprite.svg#icon-search" />
+                    </svg>
+                    <input type="text" class="filter__input" placeholder="Rechercher un filtre" />
+                  </label>
+                  <ul class="filter__list"></ul>
+                </div>
+              </div>
+            </template>
+          </div>
+        </section>
+
         <!-- Recipes -->
-        <section class="recipes"></section>
+        <section class="recipes">
+          <!-- Template - recipe-card -->
+          <template id="recipe-card-template">
+            <a href="#" class="recipe-card">
+              <img class="recipe-card__thumbnail" />
+              <div class="recipe-card__content">
+                <header class="recipe-card__header">
+                  <h2 class="recipe-card__title"></h2>
+                  <div class="recipe-card__time">
+                    <svg class="recipe-card__time-icon">
+                      <use xlink:href="assets/sprite.svg#icon-timer"></use>
+                    </svg>
+                    <span class="recipe-card__time-value"></span>
+                  </div>
+                </header>
+                <div class="recipe-card__body">
+                  <ul class="recipe-card__ingredients"></ul>
+                  <p class="recipe-card__description"></p>
+                </div>
+              </div>
+            </a>
+          </template>
+        </section>
+
+        <!-- Template - recipe-modal -->
+        <template id="recipe-modal-template">
+          <dialog class="recipe-modal">
+            <div class="recipe-modal__container">
+              <div class="recipe-modal__thumbnail-wrapper">
+                <img class="recipe-modal__thumbnail" />
+              </div>
+              <header class="recipe-modal__header">
+                <div class="recipe-modal__infos">
+                  <h3 class="recipe-modal__title"></h3>
+                  <div class="recipe-modal__time">
+                    <svg class="recipe-modal__time-icon">
+                      <use xlink:href="assets/sprite.svg#icon-timer"></use>
+                    </svg>
+                    <span class="recipe-modal__time-value"></span>
+                  </div>
+                </div>
+                <button class="recipe-modal__close">
+                  <svg class="recipe-modal__close-icon">
+                    <use xlink:href="assets/sprite.svg#icon-close"></use>
+                  </svg>
+                  <span class="recipe-modal__close-text">Fermer</span>
+                </button>
+              </header>
+              <div class="recipe-modal__servings">
+                <button class="recipe-modal__servings-buttons" id="decrease-servings" disabled>
+                  <svg class="recipe-modal__servings-icon">
+                    <use xlink:href="assets/sprite.svg#icon-minus"></use>
+                  </svg>
+                  <span class="recipe-modal__servings-buttons-text">Diminuer</span>
+                </button>
+                <span class="recipe-modal__servings-count"></span>
+                <button class="recipe-modal__servings-buttons" id="increase-servings">
+                  <svg class="recipe-modal__servings-icon">
+                    <use xlink:href="assets/sprite.svg#icon-plus"></use>
+                  </svg>
+                  <span class="recipe-modal__servings-buttons-text">Augmenter</span>
+                </button>
+              </div>
+              <div class="recipe-modal__content">
+                <div class="recipe-modal__ingredients">
+                  <h4 class="recipe-modal__ingredients-title">Ingrédients</h4>
+                  <ul class="recipe-modal__ingredients-list"></ul>
+                </div>
+                <div class="recipe-modal__appliance-ustensils">
+                  <h4 class="recipe-modal__appliance-ustensils-title">Ustensiles</h4>
+                  <ul class="recipe-modal__appliance-ustensils-list"></ul>
+                </div>
+                <div class="recipe-modal__description">
+                  <h4 class="recipe-modal__description-title">Instructions</h4>
+                  <p class="recipe-modal__description-text"></p>
+                </div>
+              </div>
+            </div>
+          </dialog>
+        </template>
       </main>
 
       <!-- Footer -->
@@ -80,85 +189,6 @@
         <span class="scroll-top__text">Haut de page</span>
       </button>
     </div>
-
-    <!-- Template - recipe-card -->
-    <template id="recipe-card-template">
-      <a href="#" class="recipe-card">
-        <img class="recipe-card__thumbnail" />
-        <div class="recipe-card__content">
-          <header class="recipe-card__header">
-            <h2 class="recipe-card__title"></h2>
-            <div class="recipe-card__time">
-              <svg class="recipe-card__time-icon">
-                <use xlink:href="assets/sprite.svg#icon-timer"></use>
-              </svg>
-              <span class="recipe-card__time-value"></span>
-            </div>
-          </header>
-          <div class="recipe-card__body">
-            <ul class="recipe-card__ingredients"></ul>
-            <p class="recipe-card__description"></p>
-          </div>
-        </div>
-      </a>
-    </template>
-
-    <!-- Template - recipe-modal -->
-    <template id="recipe-modal-template">
-      <dialog class="recipe-modal">
-        <div class="recipe-modal__container">
-          <div class="recipe-modal__thumbnail-wrapper">
-            <img class="recipe-modal__thumbnail" />
-          </div>
-          <header class="recipe-modal__header">
-            <div class="recipe-modal__infos">
-              <h3 class="recipe-modal__title"></h3>
-              <div class="recipe-modal__time">
-                <svg class="recipe-modal__time-icon">
-                  <use xlink:href="assets/sprite.svg#icon-timer"></use>
-                </svg>
-                <span class="recipe-modal__time-value"></span>
-              </div>
-            </div>
-            <button class="recipe-modal__close">
-              <svg class="recipe-modal__close-icon">
-                <use xlink:href="assets/sprite.svg#icon-close"></use>
-              </svg>
-              <span class="recipe-modal__close-text">Fermer</span>
-            </button>
-          </header>
-          <div class="recipe-modal__servings">
-            <button class="recipe-modal__servings-buttons" id="decrease-servings" disabled>
-              <svg class="recipe-modal__servings-icon">
-                <use xlink:href="assets/sprite.svg#icon-minus"></use>
-              </svg>
-              <span class="recipe-modal__servings-buttons-text">Diminuer</span>
-            </button>
-            <span class="recipe-modal__servings-count"></span>
-            <button class="recipe-modal__servings-buttons" id="increase-servings">
-              <svg class="recipe-modal__servings-icon">
-                <use xlink:href="assets/sprite.svg#icon-plus"></use>
-              </svg>
-              <span class="recipe-modal__servings-buttons-text">Augmenter</span>
-            </button>
-          </div>
-          <div class="recipe-modal__content">
-            <div class="recipe-modal__ingredients">
-              <h4 class="recipe-modal__ingredients-title">Ingrédients</h4>
-              <ul class="recipe-modal__ingredients-list"></ul>
-            </div>
-            <div class="recipe-modal__appliance-ustensils">
-              <h4 class="recipe-modal__appliance-ustensils-title">Ustensiles</h4>
-              <ul class="recipe-modal__appliance-ustensils-list"></ul>
-            </div>
-            <div class="recipe-modal__description">
-              <h4 class="recipe-modal__description-title">Instructions</h4>
-              <p class="recipe-modal__description-text"></p>
-            </div>
-          </div>
-        </div>
-      </dialog>
-    </template>
 
     <!-- Scripts -->
     <script type="module" src="src/app.js"></script>

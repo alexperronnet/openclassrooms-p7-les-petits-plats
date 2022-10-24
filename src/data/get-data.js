@@ -13,9 +13,7 @@ export function GetData() {
     // Rewrite properties
     recipe.name = FormatString(recipe.name)
     recipe.compositions = recipe.ingredients
-    recipe.ingredients = recipe.compositions.map(composition =>
-      FormatString(composition.ingredient)
-    )
+    recipe.ingredients = recipe.compositions.map(composition => FormatString(composition.ingredient))
     recipe.appliance = [FormatString(recipe.appliance)]
     recipe.ustensils = recipe.ustensils.map(ustensil => FormatString(ustensil))
 
@@ -27,7 +25,16 @@ export function GetData() {
 
     // Create thumbnail
     recipe.thumbnail = `assets/thumbnails/recipe-${recipe.id}.webp`
+
+    // Create keywords
+    recipe.filters = [...recipe.ingredients, ...recipe.appliance, ...recipe.ustensils]
   })
+
+  recipes.filters = {
+    ingredients: [...new Set(recipes.map(recipe => recipe.ingredients).flat())],
+    appliances: [...new Set(recipes.map(recipe => recipe.appliance).flat())],
+    ustensils: [...new Set(recipes.map(recipe => recipe.ustensils).flat())]
+  }
 
   // Return recipes
   return recipes

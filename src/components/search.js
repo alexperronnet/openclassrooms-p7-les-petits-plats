@@ -48,24 +48,18 @@ export function Search(recipeData) {
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
         .toLowerCase()
-
-    // Stop words
-    const StopWords = string => {
-      const stopWords = ['de', 'la', 'en', 'aux', 'au', 'et', 'ou']
-
-      return string.split(/\W+/).filter(word => !stopWords.includes(word) && word.length > 1)
-    }
+        .split(/\W+/)
 
     // Wait for 2 characters
     if (event.target.value.length >= 3) {
       // Get search value
-      const searchValue = StopWords(Normalize(event.target.value))
+      const searchValue = Normalize(event.target.value)
 
       // Get recipes matching search value
       const searchResults = recipeData.filter(recipe => {
         // Get name and ingredients
-        const recipeName = StopWords(Normalize(recipe.name))
-        const recipeIngredients = StopWords(Normalize(recipe.ingredients.join(' ')))
+        const recipeName = Normalize(recipe.name)
+        const recipeIngredients = Normalize(recipe.ingredients.join(' '))
 
         // Get keywords
         const keywords = [...new Set([...recipeName, ...recipeIngredients])]
@@ -90,5 +84,10 @@ export function Search(recipeData) {
       // Show all recipes
       recipeCards.forEach(recipeCard => (recipeCard.hidden = false))
     }
+  })
+
+  // On blur, dispatch event to update recipe cards
+  searchInput.addEventListener('focusout', () => {
+    document.dispatchEvent(new Event('searchDone'))
   })
 }
