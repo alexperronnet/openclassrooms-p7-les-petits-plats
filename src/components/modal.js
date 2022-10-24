@@ -148,6 +148,12 @@ export function Modal(card, recipe) {
         recipe.compositions[index].unit || ''
       }`
     })
+
+    // Get checked ingredients
+    const checkedIngredients = modalIngredients.querySelectorAll('.recipe-modal__ingredient-checkbox:checked')
+
+    // Reset checked ingredients
+    checkedIngredients.forEach(ingredient => (ingredient.checked = false))
   }
 
   // Event to update servings

@@ -6,7 +6,8 @@ import { GetData } from '@/data/get-data'
 const recipeData = GetData()
 
 // Components
-import { Recipes } from '@/components'
+import { Recipes, ScrollTop } from '@/components'
 
 // Initialize components
 Recipes(recipeData)
+ScrollTop()
