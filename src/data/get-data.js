@@ -21,6 +21,7 @@ export function GetData() {
     recipe.compositions.forEach(composition => {
       // Rewrite properties
       composition.ingredient = FormatString(composition.ingredient)
+      composition.quantity = Number(composition.quantity)
     })
 
     // Create thumbnail

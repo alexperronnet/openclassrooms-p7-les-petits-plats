@@ -43,7 +43,7 @@ export function Filters(recipeData) {
 
       // Set template
       template.innerHTML = `
-        <li class="filter__item" data-value="${item}">
+        <li class="filter__item" data-value="${item}" title="${item}">
           <button class="filter__item-button">${item}</button>
         </li>
       `
@@ -83,21 +83,26 @@ export function Filters(recipeData) {
       filterDropdown.hidden = true
     }
 
+    // Reset input
+    const ResetInput = () => {
+      filterInput.value = ''
+      filterInput.dispatchEvent(new Event('input'))
+    }
+
     // Close dropdowns on click outside
-    document.addEventListener('click', event => !event.target.closest('.filter') && CloseDropdowns())
+    document.addEventListener('click', event => {
+      !filter.contains(event.target) && (CloseDropdowns() || ResetInput())
+    })
 
     // Close dropdowns on escape
-    filterDropdown.addEventListener('keydown', event => {
+    document.addEventListener('keydown', event => {
       if (event.key === 'Escape') {
-        // If input is not empty, clear it
-        if (filterInput.value) {
-          filterInput.value = ''
-          filterInput.dispatchEvent(new Event('input'))
-        } else {
-          CloseDropdowns()
-        }
+        filterInput.value ? ResetInput() : CloseDropdowns()
       }
     })
+
+    // Get filter items
+    const filterItems = filterList.querySelectorAll('.filter__item')
 
     // Search filter
     filterInput.addEventListener('input', event => {
@@ -112,38 +117,41 @@ export function Filters(recipeData) {
       const filterValue = Normalize(event.target.value)
 
       // Loop through filter items
-      filterList.querySelectorAll('.filter__item').forEach(filterItem => {
+      filterItems.forEach(filterItem => {
         // Get dataset value
         const filterItemValue = Normalize(filterItem.dataset.value)
 
         // Check if dataset value matches filter value
         filterValue.every(value => filterItemValue.some(keyword => keyword.includes(value)))
-          ? (filterItem.hidden = false)
-          : (filterItem.hidden = true)
+          ? filterList.append(filterItem)
+          : filterItem.remove()
       })
     })
-  })
 
-  // On blur of search input hide filters
-  document.addEventListener('searchDone', () => {
-    // Get not hidden recipes
-    const DisplayedRecipes = document.querySelectorAll('.recipe-card:not([hidden])')
+    // Browse filter items with keyboard
+    filterList.addEventListener('keydown', event => {
+      // Browse
+      const Browse = jumpCount => {
+        event.preventDefault()
 
-    // Get IDs of not hidden recipes
-    const recipesIds = Array.from(DisplayedRecipes).map(recipe => recipe.dataset.recipeId)
+        // Get current position of button in filterItems
+        const currentPosition = Array.from(filterList.children).indexOf(event.target.parentElement)
 
-    // Get filters of not hidden recipes
-    const recipesFilters = [
-      ...new Set(recipesIds.map(id => recipeData.find(recipe => recipe.id === Number(id)).filters).flat())
-    ]
+        // Get next position of button in filterItems
+        const nextPosition = filterList.children[currentPosition + jumpCount]
 
-    // Loop through filters items
-    document.querySelectorAll('.filter__item').forEach(item => {
-      // Get value
-      const value = item.dataset.value
+        // Check if next position exists
+        nextPosition && nextPosition.querySelector('.filter__item-button').focus()
+      }
 
-      // Check if values matches filters
-      recipesFilters.includes(value) ? (item.hidden = false) : (item.hidden = true)
+      // Get column count
+      const columnCount = getComputedStyle(filterList).gridTemplateColumns.split(' ').length
+
+      // Browse with arrow keys
+      event.key === 'ArrowUp' && Browse(-columnCount)
+      event.key === 'ArrowDown' && Browse(columnCount)
+      event.key === 'ArrowLeft' && Browse(-1)
+      event.key === 'ArrowRight' && Browse(1)
     })
   })
 }

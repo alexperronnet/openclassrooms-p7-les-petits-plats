@@ -78,11 +78,11 @@ export function Search(recipeData) {
 
       // Hide/show recipes
       recipeCards.forEach(recipeCard => {
-        !searchResultsCards.includes(recipeCard) ? (recipeCard.hidden = true) : (recipeCard.hidden = false)
+        searchResultsCards.includes(recipeCard) ? recipes.append(recipeCard) : recipeCard.remove()
       })
     } else {
       // Show all recipes
-      recipeCards.forEach(recipeCard => (recipeCard.hidden = false))
+      recipeCards.forEach(recipeCard => recipes.append(recipeCard))
     }
   })
 

@@ -72,7 +72,7 @@ export function Recipes(recipeData) {
     }
 
     // Get column count
-    const columnCount = Math.floor(recipes.offsetWidth / recipes.children[0].offsetWidth)
+    const columnCount = getComputedStyle(recipes).gridTemplateColumns.split(' ').length
 
     event.key === 'ArrowUp' && BrowseRecipes(-columnCount)
     event.key === 'ArrowDown' && BrowseRecipes(columnCount)
