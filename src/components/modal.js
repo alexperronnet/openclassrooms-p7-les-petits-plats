@@ -1,7 +1,4 @@
 export function Modal(card, recipe) {
-  // Disable scroll
-  document.body.style.overflow = 'hidden'
-
   // Get template
   const modalTemplate = document.querySelector('#recipe-modal-template')
 
@@ -46,8 +43,8 @@ export function Modal(card, recipe) {
       </li>
     `
 
-    // Remove quantity if undefined
-    ingredient.quantity === undefined &&
+    // Remove quantity if NaN
+    isNaN(ingredient.quantity) &&
       ingredientTemplate.content.querySelector('.recipe-modal__ingredient-quantity').remove()
 
     // Append ingredient to list
@@ -86,9 +83,6 @@ export function Modal(card, recipe) {
       () => {
         modal.removeAttribute('closing')
         modal.remove()
-
-        // Enable scroll
-        document.body.removeAttribute('style')
 
         // Focus on recipe card
         card.focus()

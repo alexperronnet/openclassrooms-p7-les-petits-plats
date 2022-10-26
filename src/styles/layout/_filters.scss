@@ -221,6 +221,14 @@
   @media (max-width: $bp-mobile) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  &[no-results] {
+    display: none;
+  }
+}
+
+.filter__item[filtered] {
+  display: none;
 }
 
 .filter__item-button {

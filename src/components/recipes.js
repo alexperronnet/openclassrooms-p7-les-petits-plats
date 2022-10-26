@@ -39,8 +39,8 @@ export function Recipes(recipeData) {
         </li>
       `
 
-      // Remove quantity if undefined
-      ingredient.quantity === undefined &&
+      // Remove quantity if not a number
+      isNaN(ingredient.quantity) &&
         ingredientTemplate.content.querySelector('.recipe-card__ingredient-quantity').remove()
 
       // Append ingredient to list
@@ -52,31 +52,5 @@ export function Recipes(recipeData) {
 
     // On click on card create dialog
     card.addEventListener('click', event => event.preventDefault() || Modal(card, recipe))
-  })
-
-  // Browse recipes with arrow keys
-  recipes.addEventListener('keydown', event => {
-    // Browse recipes
-    const BrowseRecipes = columnCount => {
-      // Prevent default
-      event.preventDefault()
-
-      // Get current position
-      const currentPosition = Array.from(recipes.children).indexOf(event.target)
-
-      // Get next position
-      const nextPosition = recipes.children[currentPosition + columnCount]
-
-      // Focus next position
-      nextPosition && nextPosition.focus()
-    }
-
-    // Get column count
-    const columnCount = getComputedStyle(recipes).gridTemplateColumns.split(' ').length
-
-    event.key === 'ArrowUp' && BrowseRecipes(-columnCount)
-    event.key === 'ArrowDown' && BrowseRecipes(columnCount)
-    event.key === 'ArrowLeft' && BrowseRecipes(-1)
-    event.key === 'ArrowRight' && BrowseRecipes(1)
   })
 }

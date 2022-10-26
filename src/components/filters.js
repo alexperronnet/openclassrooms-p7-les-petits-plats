@@ -25,6 +25,7 @@ export function Filters(recipeData) {
     const filterLabel = clone.querySelector('.filter__label')
     const filterInput = clone.querySelector('.filter__input')
     const filterList = clone.querySelector('.filter__list')
+    const filterNoResults = clone.querySelector('.filter__no-results')
 
     // Set attributes
     filter.dataset.filterCategory = category
@@ -101,9 +102,6 @@ export function Filters(recipeData) {
       }
     })
 
-    // Get filter items
-    const filterItems = filterList.querySelectorAll('.filter__item')
-
     // Search filter
     filterInput.addEventListener('input', event => {
       const Normalize = string =>
@@ -117,41 +115,47 @@ export function Filters(recipeData) {
       const filterValue = Normalize(event.target.value)
 
       // Loop through filter items
-      filterItems.forEach(filterItem => {
+      filterList.querySelectorAll('.filter__item').forEach(filterItem => {
         // Get dataset value
         const filterItemValue = Normalize(filterItem.dataset.value)
 
         // Check if dataset value matches filter value
         filterValue.every(value => filterItemValue.some(keyword => keyword.includes(value)))
-          ? filterList.append(filterItem)
-          : filterItem.remove()
+          ? (filterItem.hidden = false)
+          : (filterItem.hidden = true)
+
+        // If all items are hidden, show no results else hide no results (do not include items with filtered attribute)
+        if (filterList.querySelectorAll('.filter__item:not([hidden]):not([filtered])').length === 0) {
+          filterList.setAttribute('no-results', '')
+          filterNoResults.hidden = false
+        } else {
+          filterList.removeAttribute('no-results')
+          filterNoResults.hidden = true
+        }
       })
     })
+  })
 
-    // Browse filter items with keyboard
-    filterList.addEventListener('keydown', event => {
-      // Browse
-      const Browse = jumpCount => {
-        event.preventDefault()
+  // On blur of search input hide filters
+  document.addEventListener('searchDone', () => {
+    // Get recipes
+    const recipes = document.querySelectorAll('.recipe-card:not([hidden])')
 
-        // Get current position of button in filterItems
-        const currentPosition = Array.from(filterList.children).indexOf(event.target.parentElement)
+    // Get IDs
+    const recipesIds = Array.from(recipes).map(recipe => recipe.dataset.recipeId)
 
-        // Get next position of button in filterItems
-        const nextPosition = filterList.children[currentPosition + jumpCount]
+    // Get filters
+    const recipesFilters = [
+      ...new Set(recipesIds.map(id => recipeData.find(recipe => recipe.id === Number(id)).filters).flat())
+    ]
 
-        // Check if next position exists
-        nextPosition && nextPosition.querySelector('.filter__item-button').focus()
-      }
+    // Loop through filters items
+    document.querySelectorAll('.filter__item').forEach(item => {
+      // Get value
+      const value = item.dataset.value
 
-      // Get column count
-      const columnCount = getComputedStyle(filterList).gridTemplateColumns.split(' ').length
-
-      // Browse with arrow keys
-      event.key === 'ArrowUp' && Browse(-columnCount)
-      event.key === 'ArrowDown' && Browse(columnCount)
-      event.key === 'ArrowLeft' && Browse(-1)
-      event.key === 'ArrowRight' && Browse(1)
+      // Check if values matches filters
+      recipesFilters.includes(value) ? item.removeAttribute('filtered') : item.setAttribute('filtered', '')
     })
   })
 }
