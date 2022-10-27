@@ -63,7 +63,15 @@
         <!-- Filters & tags -->
         <section class="filters-tags">
           <!-- Tags -->
-          <div class="tags" hidden></div>
+          <div class="tags" no-tags>
+            <button class="tags__reset">
+              <svg class="tags__reset-icon">
+                <use xlink:href="assets/sprite.svg#icon-trash" />
+              </svg>
+              <span class="tags__reset-text">Supprimer les tags</span>
+            </button>
+            <ul class="tags__list"></ul>
+          </div>
 
           <!-- Filters -->
           <div class="filters">

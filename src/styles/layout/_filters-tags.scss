@@ -1,8 +1,9 @@
 @forward '@/styles/layout/filters.scss';
+@forward '@/styles/layout/tags.scss';
 
 .filters-tags {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   margin-block-start: 2rem;
 }

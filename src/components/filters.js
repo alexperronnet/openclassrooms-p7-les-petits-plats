@@ -1,3 +1,6 @@
+// Import tags
+import { Tags } from '@/components'
+
 export function Filters(recipeData) {
   // Get elements
   const filters = document.querySelector('.filters')
@@ -124,7 +127,7 @@ export function Filters(recipeData) {
           ? (filterItem.hidden = false)
           : (filterItem.hidden = true)
 
-        // If all items are hidden, show no results else hide no results (do not include items with filtered attribute)
+        // If all items are hidden, show no results
         if (filterList.querySelectorAll('.filter__item:not([hidden]):not([filtered])').length === 0) {
           filterList.setAttribute('no-results', '')
           filterNoResults.hidden = false
@@ -132,6 +135,21 @@ export function Filters(recipeData) {
           filterList.removeAttribute('no-results')
           filterNoResults.hidden = true
         }
+
+        // If all items are filtered hide no results
+        if (
+          filterList.querySelectorAll('.filter__item[filtered]').length ===
+          filterList.querySelectorAll('.filter__item').length
+        ) {
+          filterNoResults.hidden = true
+        }
+      })
+    })
+
+    // Select filter item
+    filterList.querySelectorAll('.filter__item-button').forEach(filterItemButton => {
+      filterItemButton.addEventListener('click', event => {
+        Tags(event, category, filterList)
       })
     })
   })
@@ -156,6 +174,18 @@ export function Filters(recipeData) {
 
       // Check if values matches filters
       recipesFilters.includes(value) ? item.removeAttribute('filtered') : item.setAttribute('filtered', '')
+
+      // If all items are filtered, disable input
+      if (item.parentElement.querySelectorAll('.filter__item:not([filtered])').length === 0) {
+        item.parentElement.parentElement.querySelector('.filter__input').disabled = true
+        item.parentElement.parentElement.querySelector('.filter__input').placeholder = 'Recherche désactivée'
+      } else {
+        item.parentElement.parentElement.querySelector('.filter__input').disabled = false
+        item.parentElement.parentElement.querySelector('.filter__input').placeholder = 'Rechercher un filtre'
+      }
     })
+
+    // Dispatch input event
+    document.querySelectorAll('.filter__input').forEach(input => input.dispatchEvent(new Event('input')))
   })
 }

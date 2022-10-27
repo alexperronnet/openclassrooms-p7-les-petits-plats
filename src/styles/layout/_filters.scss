@@ -182,6 +182,10 @@
 
   &:disabled {
     cursor: not-allowed;
+
+    &:hover {
+      outline-color: transparent;
+    }
   }
 
   &:disabled::placeholder {
@@ -227,8 +231,14 @@
   }
 }
 
-.filter__item[filtered] {
-  display: none;
+.filter__item {
+  &[filtered] {
+    display: none;
+  }
+
+  &[selected] {
+    opacity: 0.5;
+  }
 }
 
 .filter__item-button {
@@ -243,6 +253,14 @@
   outline: 0.125rem solid transparent;
   cursor: pointer;
   transition: outline-color $transition-fast, background-color $transition-fast;
+
+  &:disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: rgba($color-white, 0.1);
+    }
+  }
 
   &:is(:hover, :focus-visible) {
     background-color: rgba($color-white, 0.2);
