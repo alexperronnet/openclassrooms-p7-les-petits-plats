@@ -38,10 +38,12 @@ export function Search(recipeData) {
 
   // Get elements for search results
   const recipes = document.querySelector('.recipes')
-  const recipeCards = document.querySelectorAll('.recipe-card')
 
   // Start search
   searchInput.addEventListener('input', event => {
+    // Get recipe cards
+    const recipeCards = document.querySelectorAll('.recipe-card:not([filtered])')
+
     // Normalize strings
     const Normalize = string =>
       string

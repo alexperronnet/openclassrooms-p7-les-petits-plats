@@ -75,8 +75,10 @@ export function Filters(recipeData) {
         }
       })
 
-      // Focus input
-      filterInput.focus()
+      // Focus input if not disabled
+      if (!filterInput.disabled) {
+        filterInput.focus()
+      }
     })
 
     // Close dropdowns
@@ -149,7 +151,23 @@ export function Filters(recipeData) {
     // Select filter item
     filterList.querySelectorAll('.filter__item-button').forEach(filterItemButton => {
       filterItemButton.addEventListener('click', event => {
-        Tags(event, category, filterList)
+        Tags(event, category, filterList, recipeData)
+
+        // If all items not filtered and not hidden are selected, disable input
+        if (
+          filterList.querySelectorAll('.filter__item:not([filtered])').length ===
+          filterList.querySelectorAll('.filter__item:not([hidden]):not([filtered])[selected]').length
+        ) {
+          filterInput.disabled = true
+          filterInput.placeholder = 'Recherche désactivée'
+        } else {
+          filterInput.disabled = false
+          filterInput.placeholder = 'Rechercher un filtre'
+        }
+
+        // Reset input
+        ResetInput()
+        filterInput.focus()
       })
     })
   })
@@ -175,8 +193,11 @@ export function Filters(recipeData) {
       // Check if values matches filters
       recipesFilters.includes(value) ? item.removeAttribute('filtered') : item.setAttribute('filtered', '')
 
-      // If all items are filtered, disable input
-      if (item.parentElement.querySelectorAll('.filter__item:not([filtered])').length === 0) {
+      // If all items are filtered and selected, disable input
+      if (
+        item.parentElement.querySelectorAll('.filter__item:not([filtered])').length ===
+        item.parentElement.querySelectorAll('.filter__item:not([filtered])[selected]').length
+      ) {
         item.parentElement.parentElement.querySelector('.filter__input').disabled = true
         item.parentElement.parentElement.querySelector('.filter__input').placeholder = 'Recherche désactivée'
       } else {
