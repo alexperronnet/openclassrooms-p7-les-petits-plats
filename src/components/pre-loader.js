@@ -4,13 +4,13 @@ export function PreLoader() {
   const preLoader = document.querySelector('.pre-loader')
   const preLoaderBarProgress = document.querySelector('.pre-loader__bar-progress')
 
-  // Increase progress bar
-  preLoaderBarProgress.style.width = '0%'
-
-  window.addEventListener('DOMContentLoaded', () => {
-    preLoaderBarProgress.style.width = '50%'
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      preLoaderBarProgress.style.width = '25%'
+    }, 1000)
   })
 
+  // After DOMContentLoaded, load the rest of the assets
   window.addEventListener('load', () => {
     preLoaderBarProgress.style.width = '100%'
   })
