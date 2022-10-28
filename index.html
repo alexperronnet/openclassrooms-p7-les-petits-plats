@@ -38,6 +38,7 @@
     <link rel="icon" type="image/png" href="favicon.png" />
 
     <!-- Google fonts -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
@@ -116,7 +117,7 @@
           <!-- Template - recipe-card -->
           <template id="recipe-card-template">
             <a href="#" class="recipe-card">
-              <img class="recipe-card__thumbnail" />
+              <img class="recipe-card__thumbnail" loading="lazy" width="512" height="288" />
               <div class="recipe-card__content">
                 <header class="recipe-card__header">
                   <h2 class="recipe-card__title"></h2>
@@ -153,7 +154,7 @@
           <dialog class="recipe-modal">
             <div class="recipe-modal__container">
               <div class="recipe-modal__thumbnail-wrapper">
-                <img class="recipe-modal__thumbnail" />
+                <img class="recipe-modal__thumbnail" loading="lazy" width="512" height="288" />
               </div>
               <header class="recipe-modal__header">
                 <div class="recipe-modal__infos">
