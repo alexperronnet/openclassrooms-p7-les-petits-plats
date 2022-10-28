@@ -42,6 +42,16 @@
       color: map-get($color-blue, default);
     }
   }
+
+  &[error] {
+    border-color: map-get($color-red, 'default');
+    animation: input-error $transition-slow;
+
+    + .search__label .search__icon {
+      color: map-get($color-red, 'default');
+      animation: appear-from-bottom $transition-fast;
+    }
+  }
 }
 
 .search__label {

@@ -124,6 +124,20 @@
           </template>
         </section>
 
+        <!-- No results -->
+        <section class="no-results" hidden>
+          <svg class="no-results__icon">
+            <use xlink:href="assets/sprite.svg#icon-unhappy" />
+          </svg>
+          <div class="no-results__content">
+            <h2 class="no-results__title">Oups</h2>
+            <p class="no-results__text">
+              Aucune recette ne correspond à votre recherche. Essayez de réduire vos critères de recherche.
+            </p>
+            <ul class="no-results__suggestions" hidden></ul>
+          </div>
+        </section>
+
         <!-- Template - recipe-modal -->
         <template id="recipe-modal-template">
           <dialog class="recipe-modal">

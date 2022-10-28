@@ -1,0 +1,50 @@
+@use '@/styles/abstracts/variables' as *;
+
+.no-results {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding-block: 6rem;
+}
+
+.no-results[hidden] {
+  display: none;
+}
+
+.no-results__icon {
+  height: 5rem;
+  width: 5rem;
+
+  @media (max-width: $bp-mobile) {
+    height: 4rem;
+  }
+}
+
+.no-results__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.no-results__title {
+  font-size: 2rem;
+  font-weight: 700;
+
+  @media (max-width: $bp-mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+.no-results__text {
+  font-size: 1.25rem;
+  max-width: 32rem;
+
+  @media (max-width: $bp-mobile) {
+    font-size: 1rem;
+  }
+}

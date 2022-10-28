@@ -18,6 +18,10 @@
   @media (max-width: $bp-mobile) {
     margin-block-end: 2rem;
   }
+
+  &[hidden] {
+    display: none;
+  }
 }
 
 .recipe-card {

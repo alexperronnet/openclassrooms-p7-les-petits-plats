@@ -2,6 +2,8 @@ export function Search(recipeData) {
   // Get elements
   const searchInput = document.querySelector('.search__input')
   const searchKbd = document.querySelector('.search__kbd')
+  const searchIcon = document.querySelector('.search__icon')
+  const noResults = document.querySelector('.no-results')
 
   // Content for search keyboard shortcut
   const searchKbdContent = {
@@ -85,6 +87,30 @@ export function Search(recipeData) {
     } else {
       // Show all recipes
       recipeCards.forEach(recipeCard => (recipeCard.hidden = false))
+    }
+
+    // Check if there are recipes
+    recipes.hidden = [...recipeCards].every(recipeCard => recipeCard.hidden)
+
+    // If no recipes, show message
+    if (recipes.hidden) {
+      // Set state
+      searchInput.setAttribute('error', '')
+      noResults.hidden = false
+
+      // Update the icon
+      searchIcon.innerHTML = `
+        <use xlink:href="assets/sprite.svg#icon-error" />
+      `
+    } else {
+      // Set state
+      searchInput.removeAttribute('error')
+      noResults.hidden = true
+
+      // Update the icon
+      searchIcon.innerHTML = `
+        <use xlink:href="assets/sprite.svg#icon-search" />
+      `
     }
   })
 
