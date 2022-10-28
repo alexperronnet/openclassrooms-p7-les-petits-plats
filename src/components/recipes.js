@@ -52,5 +52,20 @@ export function Recipes(recipeData) {
 
     // On click on card create dialog
     card.addEventListener('click', event => event.preventDefault() || Modal(card, recipe))
+
+    // Browse recipes with arrow keys left/right
+    card.addEventListener('keydown', event => {
+      const allRecipes = Array.from(recipes.querySelectorAll('.recipe-card:not([hidden])'))
+      const index = allRecipes.indexOf(card)
+      const lastIndex = allRecipes.length - 1
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        index === lastIndex ? allRecipes[0].focus() : allRecipes[index + 1].focus()
+      } else if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        index === 0 ? allRecipes[lastIndex].focus() : allRecipes[index - 1].focus()
+      }
+    })
   })
 }
