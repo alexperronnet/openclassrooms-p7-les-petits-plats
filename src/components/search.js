@@ -58,36 +58,8 @@ export function Search(recipeData) {
 
     // Wait for 2 characters
     if (event.target.value.length >= 3) {
-      // Get search value
-      const searchValue = Normalize(event.target.value)
-
-      // Get recipes matching search value
-      const searchResults = recipeData.filter(recipe => {
-        // Get name and ingredients
-        const recipeName = Normalize(recipe.name)
-        const recipeIngredients = Normalize(recipe.ingredients.join(' '))
-
-        // Get keywords
-        const keywords = [...new Set([...recipeName, ...recipeIngredients])]
-
-        // Check if keywords match search value
-        return searchValue.every(value => keywords.some(keyword => keyword.includes(value)))
-      })
-
-      // Get ids of recipes matching search value
-      const searchResultsIds = searchResults.map(recipe => recipe.id)
-
-      // Get recipes matching search value
-      const searchResultsCards = [...recipeCards].filter(recipeCard =>
-        searchResultsIds.includes(Number(recipeCard.dataset.recipeId))
-      )
-
-      // Hide/show recipes
-      recipeCards.forEach(recipeCard => {
-        searchResultsCards.includes(recipeCard) ? (recipeCard.hidden = false) : (recipeCard.hidden = true)
-      })
+      SearchAlgoA()
     } else {
-      // Show all recipes
       recipeCards.forEach(recipeCard => (recipeCard.hidden = false))
     }
 
@@ -160,6 +132,207 @@ export function Search(recipeData) {
       searchIcon.innerHTML = `
         <use xlink:href="assets/sprite.svg#icon-search" />
       `
+    }
+
+    // Search algorithm A - forEach
+    function SearchAlgoA() {
+      // Start monitoring time
+      console.clear()
+      console.time('search')
+
+      // Get search value
+      const searchTerms = Normalize(event.target.value)
+
+      recipeData.forEach((recipe, index) => {
+        // Get recipe title and ingredients
+        const recipeTitle = Normalize(recipe.name)
+        const recipeIngredients = Normalize(recipe.ingredients.join(' '))
+
+        // Get keywords
+        const keywords = [...new Set([...recipeTitle, ...recipeIngredients])]
+
+        // Check if search terms are in keywords
+        const isMatch = searchTerms.every(term => keywords.some(keyword => keyword.includes(term)))
+
+        // Hide or show recipe card
+        recipeCards[index].hidden = !isMatch
+      })
+
+      // Stop monitoring time
+      console.timeEnd('search')
+    }
+
+    // Search algorithm B - map
+    function SearchAlgoB() {
+      // Start monitoring time
+      console.clear()
+      console.time('search')
+
+      // Get search value
+      const searchTerms = Normalize(event.target.value)
+
+      // Get keywords
+      const keywords = recipeData.map(recipe => {
+        // Get recipe title and ingredients
+        const recipeTitle = Normalize(recipe.name)
+        const recipeIngredients = Normalize(recipe.ingredients.join(' '))
+
+        // Get keywords
+        return [...new Set([...recipeTitle, ...recipeIngredients])]
+      })
+
+      // Check if search terms are in keywords
+      const isMatch = keywords.map(keyword =>
+        searchTerms.every(term => keyword.some(keyword => keyword.includes(term)))
+      )
+
+      // Hide or show recipe cards
+      isMatch.forEach((match, index) => (recipeCards[index].hidden = !match))
+
+      // Stop monitoring time
+      console.timeEnd('search')
+    }
+
+    // Search algorithm C - reduce
+    function SearchAlgoC() {
+      // Start monitoring time
+      console.clear()
+      console.time('search')
+
+      // Get search value
+      const searchTerms = Normalize(event.target.value)
+
+      // Get keywords
+      const keywords = recipeData.reduce((acc, recipe) => {
+        // Get recipe title and ingredients
+        const recipeTitle = Normalize(recipe.name)
+        const recipeIngredients = Normalize(recipe.ingredients.join(' '))
+
+        // Get keywords
+        acc.push([...new Set([...recipeTitle, ...recipeIngredients])])
+
+        return acc
+      }, [])
+
+      // Check if search terms are in keywords
+      const isMatch = keywords.reduce((acc, keyword) => {
+        acc.push(searchTerms.every(term => keyword.some(keyword => keyword.includes(term))))
+
+        return acc
+      }, [])
+
+      // Hide or show recipe cards
+      isMatch.forEach((match, index) => (recipeCards[index].hidden = !match))
+
+      // Stop monitoring time
+      console.timeEnd('search')
+    }
+
+    // Search algorithm D - filter
+    function SearchAlgoD() {
+      // Start monitoring time
+      console.clear()
+      console.time('search')
+
+      // Get search value
+      const searchTerms = Normalize(event.target.value)
+
+      // Get keywords
+      const keywords = recipeData
+        .map(recipe => {
+          // Get recipe title and ingredients
+          const recipeTitle = Normalize(recipe.name)
+          const recipeIngredients = Normalize(recipe.ingredients.join(' '))
+
+          // Get keywords
+          return [...new Set([...recipeTitle, ...recipeIngredients])]
+        })
+        .filter(keyword => searchTerms.every(term => keyword.some(keyword => keyword.includes(term))))
+
+      // Hide or show recipe cards
+      recipeCards.forEach((recipeCard, index) => (recipeCard.hidden = !keywords[index]))
+
+      // Stop monitoring time
+      console.timeEnd('search')
+    }
+
+    // Search algorithm E - for loop
+    function SearchAlgoE() {
+      // Start monitoring time
+      console.clear()
+      console.time('search')
+
+      // Get search value
+      const searchTerms = Normalize(event.target.value)
+
+      // Get keywords
+      const keywords = []
+      for (let i = 0; i < recipeData.length; i++) {
+        // Get recipe title and ingredients
+        const recipeTitle = Normalize(recipeData[i].name)
+        const recipeIngredients = Normalize(recipeData[i].ingredients.join(' '))
+
+        // Get keywords
+        keywords.push([...new Set([...recipeTitle, ...recipeIngredients])])
+      }
+
+      // Check if search terms are in keywords
+      const isMatch = []
+      for (let i = 0; i < keywords.length; i++) {
+        isMatch.push(searchTerms.every(term => keywords[i].some(keyword => keyword.includes(term))))
+      }
+
+      // Hide or show recipe cards
+      for (let i = 0; i < isMatch.length; i++) {
+        recipeCards[i].hidden = !isMatch[i]
+      }
+
+      // Stop monitoring time
+      console.timeEnd('search')
+    }
+
+    // Search algorithm F - while loop
+    function SearchAlgoF() {
+      // Start monitoring time
+      console.clear()
+      console.time('search')
+
+      // Get search value
+      const searchTerms = Normalize(event.target.value)
+
+      // Get keywords
+      const keywords = []
+      let i = 0
+      while (i < recipeData.length) {
+        // Get recipe title and ingredients
+        const recipeTitle = Normalize(recipeData[i].name)
+        const recipeIngredients = Normalize(recipeData[i].ingredients.join(' '))
+
+        // Get keywords
+        keywords.push([...new Set([...recipeTitle, ...recipeIngredients])])
+
+        i++
+      }
+
+      // Check if search terms are in keywords
+      const isMatch = []
+      i = 0
+      while (i < keywords.length) {
+        isMatch.push(searchTerms.every(term => keywords[i].some(keyword => keyword.includes(term))))
+
+        i++
+      }
+
+      // Hide or show recipe cards
+      i = 0
+      while (i < isMatch.length) {
+        recipeCards[i].hidden = !isMatch[i]
+
+        i++
+      }
+
+      // Stop monitoring time
+      console.timeEnd('search')
     }
   })
 
