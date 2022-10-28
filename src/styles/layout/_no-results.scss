@@ -42,7 +42,6 @@
 
 .no-results__text {
   font-size: 1.25rem;
-  max-width: 32rem;
 
   @media (max-width: $bp-mobile) {
     font-size: 1rem;
@@ -60,9 +59,12 @@
   &[no-suggestions] {
     display: none;
   }
-}
 
-.no-results__suggestion {
+  @media (max-width: $bp-mobile) {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    width: 100%;
+  }
 }
 
 .no-results__suggestion-button {
@@ -70,13 +72,17 @@
   color: $color-white;
   background-color: $color-primary;
   border-radius: $rounded;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   outline: 0.125rem solid transparent;
   outline-offset: 0.25rem;
   cursor: pointer;
   border: none;
   transition: $transition-fast;
   transition-property: outline-color, background-color;
+
+  @media (max-width: $bp-mobile) {
+    width: 100%;
+  }
 
   &:hover {
     background-color: darken($color-primary, 10%);
