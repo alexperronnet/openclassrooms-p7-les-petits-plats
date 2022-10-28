@@ -10,26 +10,26 @@ $color-neutral: (
   600: #475569,
   700: #334155,
   800: #1e293b,
-  900: #0f172a,
+  900: #0f172a
 );
 $color-blue: (
-  light: #60a5fa,
-  default: #3b82f6,
-  dark: #2563eb,
+  light: #3b82f6,
+  default: #2563eb,
+  dark: #1d4ed8
 );
 $color-green: (
-  light: #34d399,
-  default: #10b981,
-  dark: #059669,
+  light: #10b981,
+  default: #059669,
+  dark: #047857
 );
 $color-red: (
-  light: #fb7185,
-  default: #f43f5e,
-  dark: #e11d48,
+  light: #f43f5e,
+  default: #e11d48,
+  dark: #be123c
 );
 
 // Typography
-$font-sans: "Space Grotesk", sans-serif;
+$font-sans: 'Space Grotesk', sans-serif;
 
 // Breakpoints
 $bp-mobile: 425px;

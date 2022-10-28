@@ -64,7 +64,7 @@
   }
 
   &[aria-expanded='true'] .filter__button-icon {
-    rotate: 0deg;
+    transform: rotate(0deg);
   }
 
   &:hover {
@@ -103,8 +103,8 @@
 .filter__button-icon {
   height: 1.5rem;
   width: 1.5rem;
-  rotate: 180deg;
-  transition: rotate $transition-fast;
+  transform: rotate(180deg);
+  transition: transform $transition-fast;
 }
 
 .filter__dropdown {

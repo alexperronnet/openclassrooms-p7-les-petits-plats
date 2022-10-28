@@ -29,7 +29,7 @@
   cursor: pointer;
   outline: 0.125rem solid transparent;
   outline-offset: 0.25rem;
-  transition: background-color $transition-fast, outline-color $transition-fast, scale $transition-fast;
+  transition: background-color $transition-fast, outline-color $transition-fast, transform $transition-fast;
 
   @media (max-width: $bp-mobile) {
     width: 100%;
@@ -45,7 +45,7 @@
   }
 
   &:active {
-    scale: 0.95;
+    transform: scale(0.95);
   }
 }
 
