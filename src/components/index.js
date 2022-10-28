@@ -1,3 +1,4 @@
+export { PreLoader } from '@/components/pre-loader'
 export { Recipes } from '@/components/recipes'
 export { Modal } from '@/components/modal'
 export { Filters } from '@/components/filters'

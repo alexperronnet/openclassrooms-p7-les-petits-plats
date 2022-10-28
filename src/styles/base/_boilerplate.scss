@@ -1,4 +1,4 @@
-@use "@/styles/abstracts/variables" as *;
+@use '@/styles/abstracts/variables' as *;
 
 body {
   max-width: 80rem;
@@ -39,6 +39,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  &[loading] {
+    display: none;
+  }
 }
 
 #main {
