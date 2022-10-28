@@ -4,6 +4,8 @@ export function Search(recipeData) {
   const searchKbd = document.querySelector('.search__kbd')
   const searchIcon = document.querySelector('.search__icon')
   const noResults = document.querySelector('.no-results')
+  const noResultsText = document.querySelector('.no-results__text')
+  const noResultsSuggestions = document.querySelector('.no-results__suggestions')
 
   // Content for search keyboard shortcut
   const searchKbdContent = {
@@ -102,6 +104,53 @@ export function Search(recipeData) {
       searchIcon.innerHTML = `
         <use xlink:href="assets/sprite.svg#icon-error" />
       `
+
+      // Get first word of search value
+      const firstWord = Normalize(event.target.value)[0]
+
+      // Get suggestions
+      const suggestions = recipeData
+        .filter(recipe => Normalize(recipe.name).includes(firstWord))
+        .map(recipe => recipe.name)
+
+      // If there are suggestions, show them
+      if (suggestions.length && document.querySelector('.tags[no-tags]')) {
+        // Clear suggestions
+        noResultsSuggestions.innerHTML = ''
+
+        // Update text
+        noResultsText.textContent = 'Aucune recette ne correspond à votre recherche. Voici quelques suggestions :'
+
+        // Show suggestions
+        noResultsSuggestions.removeAttribute('no-suggestions')
+
+        // For each suggestion
+        suggestions.forEach(suggestion => {
+          noResultsSuggestions.innerHTML += `
+            <li class="no-results__suggestion">
+              <button class="no-results__suggestion-button">${suggestion}</button>
+            </li>
+          `
+        })
+
+        // Add event listener to each suggestion
+        noResultsSuggestions.querySelectorAll('.no-results__suggestion-button').forEach(suggestionButton => {
+          suggestionButton.addEventListener('click', () => {
+            // Update search input
+            searchInput.value = suggestionButton.textContent
+
+            // Dispatch input event
+            searchInput.dispatchEvent(new Event('input'))
+
+            // Focus search input
+            searchInput.focus()
+          })
+        })
+      } else {
+        noResultsSuggestions.setAttribute('no-suggestions', '')
+        noResultsText.textContent =
+          'Aucune recette ne correspond à votre recherche. Essayez de réduire vos critères de recherche.'
+      }
     } else {
       // Set state
       searchInput.removeAttribute('error')

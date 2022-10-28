@@ -48,3 +48,41 @@
     font-size: 1rem;
   }
 }
+
+.no-results__suggestions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  &[no-suggestions] {
+    display: none;
+  }
+}
+
+.no-results__suggestion {
+}
+
+.no-results__suggestion-button {
+  font-size: 0.75rem;
+  color: $color-white;
+  background-color: $color-primary;
+  border-radius: $rounded;
+  padding: 0.5rem 1rem;
+  outline: 0.125rem solid transparent;
+  outline-offset: 0.25rem;
+  cursor: pointer;
+  border: none;
+  transition: $transition-fast;
+  transition-property: outline-color, background-color;
+
+  &:hover {
+    background-color: darken($color-primary, 10%);
+  }
+
+  &:focus-visible {
+    outline-color: rgba($color-primary, 0.5);
+  }
+}
