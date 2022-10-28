@@ -48,12 +48,23 @@
 
     <!-- Base link -->
     <base target="_blank" />
-    <script type="module" crossorigin src="/assets/index.69469f42.js"></script>
-    <link rel="stylesheet" href="/assets/index.a1b0280c.css">
+    <script type="module" crossorigin src="/assets/index.75078ded.js"></script>
+    <link rel="stylesheet" href="/assets/index.3da46d19.css">
   </head>
   <body>
+    <!-- Loader -->
+    <div class="pre-loader">
+      <svg class="pre-loader__logo">
+        <use xlink:href="assets/sprite.svg#logo" />
+      </svg>
+      <div class="pre-loader__bar">
+        <div class="pre-loader__bar-progress"></div>
+      </div>
+      <span class="pre-loader__text">Recette en cours de préparation ...</span>
+    </div>
+
     <!-- App -->
-    <div id="app">
+    <div id="app" loading>
       <!-- Header -->
       <header class="header">
         <h1 class="header__title">Les Petits Plats</h1>
