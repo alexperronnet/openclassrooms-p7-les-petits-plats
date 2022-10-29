@@ -61,31 +61,24 @@ export function Filters(recipeData) {
 
     // Open/close dropdown
     filterButton.addEventListener('click', event => {
-      // Set state
-      filter.ariaHasPopup = filter.ariaHasPopup === 'false' ? 'true' : 'false'
-      filterButton.ariaExpanded = filterButton.ariaExpanded === 'false' ? 'true' : 'false'
+      // Get states
+      const ariaHasPopup = filter.getAttribute('aria-haspopup')
+      const ariaExpanded = filterButton.getAttribute('aria-expanded')
+
+      // Set states
+      filter.setAttribute('aria-haspopup', ariaHasPopup === 'true' ? 'false' : 'true')
+      filterButton.setAttribute('aria-expanded', ariaExpanded === 'true' ? 'false' : 'true')
       filterDropdown.hidden = !filterDropdown.hidden
 
-      // Close other dropdowns
-      document.querySelectorAll('.filter').forEach(filter => {
-        if (filter !== filterButton.parentElement) {
-          filter.ariaHasPopup = 'false'
-          filter.querySelector('.filter__button').ariaExpanded = 'false'
-          filter.querySelector('.filter__dropdown').hidden = true
-        }
-      })
-
       // Focus input if not disabled
-      if (!filterInput.disabled) {
-        filterInput.focus()
-      }
+      !filterInput.disabled && filterInput.focus()
     })
 
     // Close dropdowns
     const CloseDropdowns = () => {
       // Set state
-      filter.ariaHasPopup = 'false'
-      filterButton.ariaExpanded = 'false'
+      filter.setAttribute('aria-haspopup', 'false')
+      filterButton.setAttribute('aria-expanded', 'false')
       filterDropdown.hidden = true
     }
 
@@ -120,14 +113,11 @@ export function Filters(recipeData) {
       const filterValue = Normalize(event.target.value)
 
       // Loop through filter items
-      filterList.querySelectorAll('.filter__item').forEach(filterItem => {
+      filterList.querySelectorAll('.filter__item').forEach(item => {
         // Get dataset value
-        const filterItemValue = Normalize(filterItem.dataset.value)
+        const itemValue = Normalize(item.dataset.value)
 
-        // Check if dataset value matches filter value
-        filterValue.every(value => filterItemValue.some(keyword => keyword.includes(value)))
-          ? (filterItem.hidden = false)
-          : (filterItem.hidden = true)
+        item.hidden = !filterValue.every(value => itemValue.some(keyword => keyword.includes(value)))
 
         // If all items are hidden, show no results
         if (filterList.querySelectorAll('.filter__item:not([hidden]):not([filtered])').length === 0) {
