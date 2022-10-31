@@ -1,3 +1,2 @@
 User-agent: *
-Disallow: /
 Sitemap: https://les-petits-plats.alexperronnet.dev/sitemap.xml
