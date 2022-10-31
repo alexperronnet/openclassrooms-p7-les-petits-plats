@@ -5,6 +5,7 @@
   font-weight: 400;
   src: local('space-grotesk-400'), url('/fonts/space-grotesk-400.woff2') format('woff2'),
     url('/fonts/space-grotesk-400.woff') format('woff');
+  font-display: swap;
 }
 
 // Create Space Grotesk - bold
@@ -14,4 +15,5 @@
   font-weight: 700;
   src: local('space-grotesk-700'), url('/fonts/space-grotesk-700.woff2') format('woff2'),
     url('/fonts/space-grotesk-700.woff') format('woff');
+  font-display: swap;
 }
