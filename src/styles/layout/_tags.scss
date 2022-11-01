@@ -1,0 +1,136 @@
+@use '@/styles/abstracts/variables' as *;
+@use '@/styles/abstracts/mixins' as *;
+
+.tags {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+
+  @media (max-width: $bp-tablet) {
+    flex-direction: column;
+  }
+
+  &[no-tags] {
+    display: none;
+  }
+}
+
+.tags__reset {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 1rem;
+  padding-inline: 1.5rem;
+  height: 3rem;
+  border-radius: $rounded;
+  background-color: map-get($color-neutral, 200);
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  outline: 0.125rem solid transparent;
+  outline-offset: 0.25rem;
+  transition: background-color $transition-fast, outline-color $transition-fast, transform $transition-fast;
+
+  @media (max-width: $bp-mobile) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  &:hover {
+    background-color: map-get($color-neutral, 300);
+  }
+
+  &:focus-visible {
+    outline-color: map-get($color-neutral, 400);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.tags__reset-icon,
+.tags__item-button-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
+}
+
+.tags__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  @media (max-width: $bp-mobile) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+}
+
+.tags__item {
+  animation: appear-from-left $transition-fast;
+
+  &[data-category='ingredients'] .tags__item-button {
+    background-color: map-get($color-blue, 'default');
+
+    &:hover {
+      background-color: map-get($color-blue, 'dark');
+    }
+
+    &:focus-visible {
+      outline-color: map-get($color-blue, 'light');
+    }
+  }
+
+  &[data-category='appliances'] .tags__item-button {
+    background-color: map-get($color-green, 'default');
+
+    &:hover {
+      background-color: map-get($color-green, 'dark');
+    }
+
+    &:focus-visible {
+      outline-color: map-get($color-green, 'light');
+    }
+  }
+
+  &[data-category='ustensils'] .tags__item-button {
+    background-color: map-get($color-red, 'default');
+
+    &:hover {
+      background-color: map-get($color-red, 'dark');
+    }
+
+    &:focus-visible {
+      outline-color: map-get($color-red, 'light');
+    }
+  }
+}
+
+.tags__item-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-inline: 1rem;
+  height: 3rem;
+  border-radius: $rounded;
+  font-size: 0.75rem;
+  color: $color-white;
+  border: none;
+  outline: 0.125rem solid transparent;
+  outline-offset: 0.25rem;
+  cursor: pointer;
+  transition: background-color $transition-fast, outline-color $transition-fast;
+
+  @media (max-width: $bp-mobile) {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.tags__item-button-text {
+  @include truncate;
+}

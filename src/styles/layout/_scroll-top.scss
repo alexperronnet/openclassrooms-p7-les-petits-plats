@@ -1,0 +1,45 @@
+@use '@/styles/abstracts/variables' as *;
+@use '@/styles/abstracts/mixins' as *;
+
+.scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 0.75rem;
+  background-color: $color-primary;
+  border-radius: $rounded-full;
+  box-shadow: $shadow;
+  border: none;
+  cursor: pointer;
+  outline: 0.125rem solid transparent;
+  outline-offset: 0.25rem;
+  transition: $transition-fast;
+  transition-property: outline-color, background-color, transform;
+  animation: appear-from-bottom $transition-fast;
+}
+
+.scroll-top[closing] {
+  animation: desappear-to-bottom $transition-fast;
+}
+
+.scroll-top:is(:hover, :focus-visible) {
+  background-color: darken($color-primary, 10);
+}
+
+.scroll-top:active {
+  transform: scale(0.9);
+}
+
+.scroll-top:focus-visible {
+  outline-color: rgba($color-primary, 0.5);
+}
+
+.scroll-top__icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: $color-white;
+}
+
+.scroll-top__text {
+  @include sr-only;
+}

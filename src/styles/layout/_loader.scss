@@ -1,0 +1,57 @@
+@use '@/styles/abstracts/variables' as *;
+
+.pre-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: $color-white;
+  background-color: $color-primary;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5rem;
+  padding-block: 4rem;
+  padding-inline: 2rem;
+
+  @media (max-width: $bp-mobile) {
+    padding-block: 3rem;
+  }
+}
+
+.pre-loader__logo {
+  height: 5rem;
+
+  @media (max-width: $bp-mobile) {
+    height: 4rem;
+  }
+}
+
+.pre-loader__bar {
+  position: relative;
+  overflow: hidden;
+  max-width: 32rem;
+  width: 100%;
+  height: 1rem;
+  border-radius: $rounded;
+  background-color: rgba($color-white, 0.2);
+  border: 0.125rem solid rgba($color-white, 0.5);
+}
+
+.pre-loader__bar-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: $color-white;
+  transition: width $transition-slow;
+}
+
+.pre-loader__text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+}

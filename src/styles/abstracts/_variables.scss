@@ -1,0 +1,49 @@
+// Colors
+$color-white: #fff;
+$color-primary: #d04f4f;
+$color-neutral: (
+  100: #f1f5f9,
+  200: #e2e8f0,
+  300: #cbd5e1,
+  400: #94a3b8,
+  500: #64748b,
+  600: #475569,
+  700: #334155,
+  800: #1e293b,
+  900: #0f172a
+);
+$color-blue: (
+  light: #3b82f6,
+  default: #2563eb,
+  dark: #1d4ed8
+);
+$color-green: (
+  light: #10b981,
+  default: #059669,
+  dark: #047857
+);
+$color-red: (
+  light: #f43f5e,
+  default: #e11d48,
+  dark: #be123c
+);
+
+// Typography
+$font-sans: 'Space Grotesk', sans-serif;
+
+// Breakpoints
+$bp-mobile: 425px;
+$bp-tablet: 768px;
+$bp-laptop: 1024px;
+$bp-desktop: 1280px;
+
+// Border Radius
+$rounded: 0.25rem;
+$rounded-full: 9999px;
+
+// Shadows
+$shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
+
+// Transitions
+$transition-fast: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+$transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);

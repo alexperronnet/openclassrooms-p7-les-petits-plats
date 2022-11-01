@@ -1,0 +1,343 @@
+@use '@/styles/abstracts/variables' as *;
+@use '@/styles/abstracts/mixins' as *;
+
+.recipe-modal {
+  all: revert;
+  max-width: 48rem;
+  width: 100%;
+  border: none;
+  padding: 0;
+  border-radius: $rounded;
+  color: map-get($color-neutral, 700);
+  background-color: map-get($color-neutral, 100);
+  box-shadow: $shadow;
+
+  @media (max-width: $bp-tablet) {
+    min-height: 100%;
+    border-radius: 0;
+  }
+
+  &::backdrop {
+    background-color: rgba(map-get($color-neutral, 700), 0.5);
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    animation: fade-in $transition-fast;
+  }
+
+  &[open] {
+    animation: scale-in $transition-fast;
+  }
+
+  &[closing] {
+    animation: scale-out $transition-fast;
+
+    &::backdrop {
+      animation: fade-out $transition-fast;
+    }
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: map-get($color-neutral, 200);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: map-get($color-neutral, 400);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: map-get($color-neutral, 500);
+  }
+}
+
+.recipe-modal__container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+.recipe-modal__thumbnail-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 16rem;
+  z-index: -1;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(map-get($color-neutral, 900), 50%) 0%, map-get($color-neutral, 100));
+  }
+}
+
+.recipe-modal__thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(map-get($color-neutral, 100), 0.5);
+  padding: 1rem 2rem;
+  border-radius: $rounded;
+  backdrop-filter: blur(4px);
+}
+
+.recipe-modal__infos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recipe-modal__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  @media (max-width: $bp-mobile) {
+    font-size: 1.125rem;
+  }
+}
+
+.recipe-modal__time {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recipe-modal__time-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.recipe-modal__close {
+  padding: 0;
+  border: none;
+  border-radius: 9999px;
+  background-color: transparent;
+  cursor: pointer;
+  outline: 0.125rem solid transparent;
+  outline-offset: 0.25rem;
+  transition: outline-color $transition-fast;
+
+  &:hover .recipe-modal__close-icon {
+    transform: rotate(90deg);
+  }
+
+  &:focus-visible {
+    outline-color: map-get($color-neutral, 700);
+  }
+}
+
+.recipe-modal__close-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  transition: transform $transition-fast;
+}
+
+.recipe-modal__close-text,
+.recipe-modal__servings-buttons-text {
+  @include sr-only;
+}
+
+.recipe-modal__servings {
+  display: flex;
+  align-items: center;
+  margin-inline: auto;
+  color: map-get($color-neutral, 100);
+  background-color: map-get($color-neutral, 700);
+  width: fit-content;
+  height: 3.5rem;
+  border-radius: $rounded;
+  overflow: hidden;
+}
+
+.recipe-modal__servings-buttons {
+  height: 100%;
+  width: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  transition: $transition-fast;
+  transition-property: opacity, background-color;
+
+  &:not(:disabled):is(:hover, :focus-visible) {
+    outline: none;
+    background-color: map-get($color-neutral, 800);
+  }
+
+  &:not(:disabled):active .recipe-modal__servings-icon {
+    transform: scale(1.2);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.25;
+  }
+}
+
+.recipe-modal__servings-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  transition: transform $transition-fast;
+}
+
+.recipe-modal__servings-count {
+  padding-inline: 1rem;
+  text-align: center;
+  width: 4rem;
+  font-size: 0.875rem;
+}
+
+.recipe-modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.recipe-modal__ingredients,
+.recipe-modal__appliance-ustensils,
+.recipe-modal__description {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.recipe-modal__ingredients-title,
+.recipe-modal__appliance-ustensils-title,
+.recipe-modal__description-title {
+  font-weight: 700;
+  background-color: map-get($color-neutral, 200);
+  padding: 1rem;
+  border-radius: $rounded;
+}
+
+.recipe-modal__ingredients-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+
+  @media (max-width: $bp-tablet) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+.recipe-modal__ingredient {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: $bp-tablet) {
+    gap: 0.5rem;
+  }
+}
+
+.recipe-modal__ingredient-checkbox {
+  cursor: pointer;
+  appearance: none;
+  position: relative;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+  border-radius: $rounded;
+  outline: 0.125rem solid transparent;
+  outline-offset: 0.25rem;
+  transition: outline-color $transition-fast;
+
+  @media (max-width: $bp-tablet) {
+    min-width: 1.25rem;
+    min-height: 1.25rem;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: $rounded;
+    background-color: map-get($color-neutral, 200);
+    border: 0.125rem solid map-get($color-neutral, 300);
+    transition: $transition-fast;
+    transition-property: background-color, border-color;
+  }
+
+  &:checked::after {
+    content: '\2713';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    color: $color-white;
+    background-color: $color-primary;
+    border-color: darken($color-primary, 10%);
+  }
+
+  &:checked {
+    + .recipe-modal__ingredient-label {
+      color: $color-primary;
+    }
+
+    + .recipe-modal__ingredient-label::after {
+      width: 100%;
+    }
+  }
+
+  &:focus-visible {
+    outline-color: rgba($color-primary, 0.5);
+  }
+}
+
+.recipe-modal__ingredient-label {
+  position: relative;
+  cursor: pointer;
+  transition: color $transition-fast;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba($color-primary, 0.2);
+    border-radius: $rounded;
+    transition: width $transition-fast;
+  }
+}
+
+.recipe-modal__ingredient-name {
+  font-weight: 700;
+}
+
+.recipe-modal__ingredient-quantity::before {
+  content: ' : ';
+}
+
+.recipe-modal__appliance-ustensils-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.recipe-modal__appliance-ustensils-item {
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: $rounded;
+  background-color: map-get($color-neutral, 200);
+}

@@ -1,0 +1,7 @@
+export { PreLoader } from '@/components/pre-loader'
+export { Recipes } from '@/components/recipes'
+export { Modal } from '@/components/modal'
+export { Filters } from '@/components/filters'
+export { Tags } from '@/components/tags'
+export { Search } from '@/components/search'
+export { ScrollTop } from '@/components/scroll-top'
