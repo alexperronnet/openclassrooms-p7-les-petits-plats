@@ -67,7 +67,10 @@ export function Search(recipeData) {
     recipes.hidden = [...recipeCards].every(recipeCard => recipeCard.hidden)
 
     // If no recipes, show message
-    if (recipes.hidden) {
+    if (recipes.hidden && noResults.hidden) {
+      // Clear suggestions if any
+      noResultsSuggestions.innerHTML = ''
+
       // Set state
       searchInput.setAttribute('error', '')
       noResults.hidden = false
@@ -87,15 +90,6 @@ export function Search(recipeData) {
 
       // If there are suggestions, show them
       if (suggestions.length && document.querySelector('.tags[no-tags]')) {
-        // Clear suggestions
-        noResultsSuggestions.innerHTML = ''
-
-        // Update text
-        noResultsText.textContent = 'Aucune recette ne correspond à votre recherche. Voici quelques suggestions :'
-
-        // Show suggestions
-        noResultsSuggestions.removeAttribute('no-suggestions')
-
         // For each suggestion
         suggestions.forEach(suggestion => {
           noResultsSuggestions.innerHTML += `
@@ -104,26 +98,35 @@ export function Search(recipeData) {
             </li>
           `
         })
-
-        // Add event listener to each suggestion
-        noResultsSuggestions.querySelectorAll('.no-results__suggestion-button').forEach(suggestionButton => {
-          suggestionButton.addEventListener('click', () => {
-            // Update search input
-            searchInput.value = suggestionButton.textContent
-
-            // Dispatch input event
-            searchInput.dispatchEvent(new Event('input'))
-
-            // Focus search input
-            searchInput.focus()
-          })
-        })
       } else {
-        noResultsSuggestions.setAttribute('no-suggestions', '')
-        noResultsText.textContent =
-          'Aucune recette ne correspond à votre recherche. Essayez de réduire vos critères de recherche.'
+        // Get random suggestions
+        const randomSuggestions = recipeData
+          .map(recipe => recipe.name)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 3)
+
+        randomSuggestions.forEach(random => {
+          // Add suggestions
+          noResultsSuggestions.innerHTML += `
+            <li class="no-results__suggestion">
+              <button class="no-results__suggestion-button">${random}</button>
+            </li>
+          `
+        })
       }
-    } else {
+
+      // Add event listener to each suggestion
+      noResultsSuggestions.querySelectorAll('.no-results__suggestion-button').forEach(suggestionButton => {
+        suggestionButton.addEventListener('click', () => {
+          searchInput.value = suggestionButton.textContent
+          searchInput.dispatchEvent(new Event('input'))
+          searchInput.focus()
+        })
+      })
+    }
+
+    // If there are recipes, hide message
+    if (!recipes.hidden && !noResults.hidden) {
       // Set state
       searchInput.removeAttribute('error')
       noResults.hidden = true
@@ -136,10 +139,6 @@ export function Search(recipeData) {
 
     // Search algorithm A - forEach
     function SearchAlgoA() {
-      // Start monitoring time
-      console.clear()
-      console.time('search')
-
       // Get search value
       const searchTerms = Normalize(event.target.value)
 
@@ -157,17 +156,10 @@ export function Search(recipeData) {
         // Hide or show recipe card
         recipeCards[index].hidden = !isMatch
       })
-
-      // Stop monitoring time
-      console.timeEnd('search')
     }
 
     // Search algorithm B - map
     function SearchAlgoB() {
-      // Start monitoring time
-      console.clear()
-      console.time('search')
-
       // Get search value
       const searchTerms = Normalize(event.target.value)
 
@@ -188,17 +180,10 @@ export function Search(recipeData) {
 
       // Hide or show recipe cards
       isMatch.forEach((match, index) => (recipeCards[index].hidden = !match))
-
-      // Stop monitoring time
-      console.timeEnd('search')
     }
 
     // Search algorithm C - reduce
     function SearchAlgoC() {
-      // Start monitoring time
-      console.clear()
-      console.time('search')
-
       // Get search value
       const searchTerms = Normalize(event.target.value)
 
@@ -223,17 +208,10 @@ export function Search(recipeData) {
 
       // Hide or show recipe cards
       isMatch.forEach((match, index) => (recipeCards[index].hidden = !match))
-
-      // Stop monitoring time
-      console.timeEnd('search')
     }
 
     // Search algorithm D - filter
     function SearchAlgoD() {
-      // Start monitoring time
-      console.clear()
-      console.time('search')
-
       // Get search value
       const searchTerms = Normalize(event.target.value)
 
@@ -251,17 +229,10 @@ export function Search(recipeData) {
 
       // Hide or show recipe cards
       recipeCards.forEach((recipeCard, index) => (recipeCard.hidden = !keywords[index]))
-
-      // Stop monitoring time
-      console.timeEnd('search')
     }
 
     // Search algorithm E - for loop
     function SearchAlgoE() {
-      // Start monitoring time
-      console.clear()
-      console.time('search')
-
       // Get search value
       const searchTerms = Normalize(event.target.value)
 
@@ -286,17 +257,10 @@ export function Search(recipeData) {
       for (let i = 0; i < isMatch.length; i++) {
         recipeCards[i].hidden = !isMatch[i]
       }
-
-      // Stop monitoring time
-      console.timeEnd('search')
     }
 
     // Search algorithm F - while loop
     function SearchAlgoF() {
-      // Start monitoring time
-      console.clear()
-      console.time('search')
-
       // Get search value
       const searchTerms = Normalize(event.target.value)
 
@@ -330,9 +294,6 @@ export function Search(recipeData) {
 
         i++
       }
-
-      // Stop monitoring time
-      console.timeEnd('search')
     }
   })
 
