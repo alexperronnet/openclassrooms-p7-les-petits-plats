@@ -17,7 +17,7 @@ export function PreLoader() {
   preLoaderBarProgress.addEventListener('transitionend', () => {
     if (preLoaderBarProgress.style.width === '100%') {
       preLoader.remove()
-      app.removeAttribute('loading')
+      app.removeAttribute('hidden')
     }
   })
 }

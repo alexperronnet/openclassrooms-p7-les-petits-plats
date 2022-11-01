@@ -40,7 +40,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
 
-  &[loading] {
+  &[hidden] {
     display: none;
   }
 }
