@@ -81,10 +81,6 @@ All the search algorithms follow the same logic, only the method used changes.
 
 > What we notice is that the differences between each algorithm are really significant, however in a great majority of cases the C algorithm (with the reduce method) is more efficient.
 
-## Deployment
-
-The application is deployed on [Netlify](https://www.netlify.com/).
-
 ## Lighthouse report
 
 ### Desktop
@@ -94,6 +90,20 @@ The application is deployed on [Netlify](https://www.netlify.com/).
 ### Mobile
 
 ![Lighthouse mobile](doc/lighthouse-mobile.png)
+
+## Validation
+
+### HTML
+
+![HTML validation](doc/html-validation.png)
+
+### CSS
+
+![CSS validation](doc/css-validation.png)
+
+## Deployment
+
+The application is deployed on [Netlify](https://www.netlify.com/).
 
 ## License
 
