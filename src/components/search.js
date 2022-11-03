@@ -94,6 +94,7 @@ export function Search(recipeData) {
 
     // Check if there are recipes
     recipes.hidden = [...recipeCards].every(recipeCard => recipeCard.hidden)
+
     // If no recipes, show message
     if (recipes.hidden && noResults.hidden) {
       // Clear suggestions if any
@@ -149,6 +150,9 @@ export function Search(recipeData) {
           searchInput.value = suggestionButton.textContent
           searchInput.dispatchEvent(new Event('input'))
           searchInput.focus()
+
+          // Click on reset button if any
+          document.querySelector('.tags__reset') && document.querySelector('.tags__reset').click()
         })
       })
     }
