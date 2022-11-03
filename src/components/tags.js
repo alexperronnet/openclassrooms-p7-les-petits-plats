@@ -34,10 +34,8 @@ export function Tags(event, category, filterList, recipeData) {
 
     // Hide/Show recipe card
     if (recipeFilters.includes(filterItemValue) && !recipeCard.hidden) {
-      recipeCard.hidden = false
       recipeCard.removeAttribute('filtered')
     } else {
-      recipeCard.hidden = true
       recipeCard.setAttribute('filtered', '')
     }
   })

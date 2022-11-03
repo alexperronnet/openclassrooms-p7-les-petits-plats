@@ -81,14 +81,19 @@ export function Search(recipeData) {
       }, [])
 
       // Hide or show recipe cards
-      isMatch.forEach((match, index) => (recipeCards[index].hidden = !match))
+      recipeCards.forEach(recipeCard => {
+        // Get recipe ID
+        const recipeId = recipeCard.dataset.recipeId
+
+        // Hide or show recipe card
+        recipeCard.hidden = !isMatch[recipeId - 1]
+      })
     } else {
       recipeCards.forEach(recipeCard => (recipeCard.hidden = false))
     }
 
     // Check if there are recipes
     recipes.hidden = [...recipeCards].every(recipeCard => recipeCard.hidden)
-
     // If no recipes, show message
     if (recipes.hidden && noResults.hidden) {
       // Clear suggestions if any

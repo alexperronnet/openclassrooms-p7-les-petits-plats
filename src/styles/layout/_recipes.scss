@@ -19,7 +19,8 @@
     margin-block-end: 2rem;
   }
 
-  &[hidden] {
+  &[hidden],
+  [filtered] {
     display: none;
   }
 }
